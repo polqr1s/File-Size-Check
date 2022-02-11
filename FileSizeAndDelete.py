@@ -2,10 +2,10 @@ import os
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
 
-path = askdirectory(title='Select Folder')
+path = askdirectory(title='Select Folder Containing todelete.txt')
 os.chdir(path)
 flist = open('todelete.txt')
-
+print ('Opened todelete.txt in', path)
 
 def filesize():
     total_size = 0
@@ -15,11 +15,12 @@ def filesize():
             for indFiles in filenames:
                 fullPath = os.path.join(dirpath, indFiles)
                 size = os.path.getsize(fullPath)
+                print (dirpath)
                 print (size, 'bytes', indFiles)
                 if not os.path.islink(fullPath):
                     total_size += size
     print (total_size, 'bytes total')
-    
+
 
 def deletefiles():
     print('Are you sure you want to delete these files and their directories?')
@@ -39,6 +40,8 @@ def deletefiles():
                             print(dirpath, 'is empty')
                             os.rmdir(dirpath)
                             print ('Deleted', dirpath)
+                        else:
+                            print(dirpath, 'is not empty, skipping')
     else:
         print('Deletion aborted')
 
